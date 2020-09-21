@@ -17,7 +17,7 @@ RSpec.describe 'Airline Show Page' do
     it "I can see list of unique passengers that have flown on this airline" do 
       visit "/airlines/#{@airline.id}"
       
-      expect(page).to have_content("Passengers: #{@airline_1.passenger_names.join(", ")}")
+      expect(page).to have_content("Passengers: #{@airline.passenger_names.join(", ")}")
     end
   end
 end

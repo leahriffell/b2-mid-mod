@@ -2,9 +2,15 @@
 
 <% @flights.each do |flight| %>
   <section id="flight-<%= flight.number %>">
-    <li>
-      <ul>Number: <%= flight.number %></ul>
-      <ul>Passengers: <%= flight.passenger_names.join(", ") %></ul>
-    </li>
+    <ul>
+      <li>Number: <%= flight.number %></li>
+      <li>Passengers: </li>
+        <% flight.passengers.each do |passenger| %>
+          <section id="passenger-<%= passenger.id %>">
+            <%= passenger.name %>
+            <%= link_to "Remove from flight", flight_update_path(flight, passenger: passenger, remove_passenger: true) %>
+          </section>
+        <% end %>
+    </ul>
   </section>
 <% end %>

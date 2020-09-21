@@ -8,9 +8,9 @@ RSpec.describe 'Flights Index Page' do
       @flight_1 = airline.flights.create!(number: "A123")
       @flight_2 = airline.flights.create!(number: "B456")
 
-      @flight_1.passengers.create!(name: "Harry Potter", age: 17)
-      @flight_1.passengers.create!(name: "Snoopy", age: 10)
-      @flight_2.passengers.create!(name: "Elmer Dawg", age: 5)
+      @passenger_1 = @flight_1.passengers.create!(name: "Harry Potter", age: 17)
+      @passenger_2 = @flight_1.passengers.create!(name: "Snoopy", age: 10)
+      @passenger_3 = @flight_2.passengers.create!(name: "Elmer Dawg", age: 5)
     end
 
     it "I can see all flight numbers" do 
@@ -24,12 +24,27 @@ RSpec.describe 'Flights Index Page' do
       visit "/flights"
 
       within("#flight-#{@flight_1.number}") do 
-        expect(page).to have_content("#{@flight_1.passenger_names.join(", ")}")
+        expect(page).to have_content("#{@passenger_1.name}")
+        expect(page).to have_content("#{@passenger_2.name}")
       end
 
       within("#flight-#{@flight_2.number}") do 
-        expect(page).to have_content("#{@flight_2.passenger_names.join(", ")}")
+        expect(page).to have_content("#{@passenger_3.name}")
       end
+    end
+
+    it "I can remove a passenger from a flight" do 
+      visit "/flights"
+
+      within("#passenger-#{@passenger_1.id}") do 
+        click_link "Remove from flight"
+      end
+
+      expect(current_path).to eq("/flights")
+
+      within("#flight-#{@flight_1.number}") do 
+        expect(page).to_not have_content("#{@passenger_1.name}")
+      end 
     end
   end
 end

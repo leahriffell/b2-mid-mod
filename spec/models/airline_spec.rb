@@ -7,7 +7,7 @@ RSpec.describe Airline, type: :model do
 
   describe 'instance methods' do 
     before :each do
-      @airline = Airline.create!(name: "Southwest Airlines")
+      @airline = create(:airline)
 
       @flight_1 = @airline.flights.create!(number: "A123")
       @flight_2 = @airline.flights.create!(number: "B456")

@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Flights Index Page' do
   describe 'As a Visitor' do
     before :each do
-      airline = Airline.create!(name: "Southwest Airlines")
+      airline = create(:airline)
 
       @flight_1 = airline.flights.create!(number: "A123")
       @flight_2 = airline.flights.create!(number: "B456")

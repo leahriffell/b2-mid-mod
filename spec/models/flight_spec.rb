@@ -22,5 +22,12 @@ RSpec.describe Flight, type: :model do
         expect(@flight_1.passenger_names).to eq([@passenger_1.name, @passenger_2.name])
       end
     end
+
+    describe 'it can remove a passenger from a flight' do 
+      it "#remove_passenger" do 
+        @flight_1.remove_passenger(@passenger_1.id)
+        expect(@flight_1.passengers).to eq([@passenger_2])
+      end
+    end
   end
 end

@@ -6,4 +6,8 @@ class Flight < ApplicationRecord
   def passenger_names
     passengers.pluck(:name)
   end
+
+  def remove_passenger(passenger_id)
+    passengers.delete(passengers.find(passenger_id))
+  end
 end
